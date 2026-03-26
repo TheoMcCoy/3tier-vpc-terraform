@@ -33,7 +33,7 @@ resource "aws_security_group" "web" {
         from_port = 80
         to_port = 80
         protocol = "tcp"
-        cidr_blocks = [aws_security_group.alb.id]
+        security_groups = [aws_security_group.alb.id]
         description = "HTTP from ALB"
     }
     egress{
@@ -53,7 +53,7 @@ resource "aws_security_group" "app" {
         from_port = 8080
         to_port = 8080
         protocol = "tcp"
-        cidr_blocks = [aws_security_group.web.id]
+        security_groups = [aws_security_group.web.id]
         description = "All traffic from Web tier"
     }
     egress {
@@ -70,11 +70,11 @@ resource "aws_security_group" "db" {
   name = "${local.project}-db-sg"
   vpc_id = aws_vpc.main.id
   ingress {
-    from_port = 3306
-    to_port = 3306
-    protocol = "tcp"
-    cidr_blocks = [aws_security_group.app.id]
-    description = "All traffic from App Tier"
-  }
+  from_port       = 5432
+  to_port         = 5432
+  protocol        = "tcp"
+  security_groups = [aws_security_group.app.id]
+  description     = "PostgreSQL from App tier"
+}
   tags = merge(local.common_tags, {Name = "${local.project}-db-sg"})
 }

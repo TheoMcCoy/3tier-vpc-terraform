@@ -14,10 +14,10 @@ output "web_instance" {
   value = aws_instance.web[*].id
 }
 
-output "aurora_cluster_endpoint" {
-  value = aws_rds_cluster.aurora.endpoint
+output "web_instance_ip" {
+  value = aws_instance.web[*].public_ip
 }
 
-output "aurora_reader_endpoint" {
-  value = aws_rds_cluster.aurora.reader_endpoint
+output "aurora_cluster_endpoint" {
+  value = aws_db_instance.database.endpoint
 }

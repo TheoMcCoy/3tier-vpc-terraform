@@ -40,9 +40,9 @@ variable "availability_zones" {
 variable "instance_type" {
   default = "t3.micro"
 }
-variable "db_instance_class" {
-  default = "db.t3.medium"
-}
+# variable "db_instance_class" {
+#   default = "db.t3.medium"
+# }
 variable "key_pair_name" {
   default = "projects101"
 }
